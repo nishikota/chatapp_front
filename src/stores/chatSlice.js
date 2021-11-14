@@ -4,7 +4,7 @@ const initialState = {
   inputValue: "",
 };
 
-export const slice = createSlice({
+export const chatSlice = createSlice({
   name: "chatapp",
   initialState,
   reducers: {
@@ -16,6 +16,6 @@ export const slice = createSlice({
 
 export const selectInput = (state) => state.chatapp.inputValue;
 
-export const {inputEvent} = slice.actions;
+export const {inputEvent} = chatSlice.actions;
 
-export default slice.reducer;
+export default chatSlice.reducer;
