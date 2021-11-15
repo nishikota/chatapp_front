@@ -9,11 +9,10 @@ import Room from "./views/pages/Room";
 import Talklist from "./views/pages/Talklist";
 import NotFound from "./views/pages/NotFound";
 import React from "react";
-// import MyprofileChange from "./views/pages/MyprofileChange";
 
 function App() {
   return (
-    <div className="App">
+    <div className="App" style={style}>
       <BrowserRouter>
         <div>
           <Switch>
@@ -31,5 +30,12 @@ function App() {
     </div>
   );
 }
+
+export const style = {
+  width: "95%",
+  margin: "1rem auto",
+  background: "skyBlue",
+  border: "solid 2px blue",
+};
 
 export default App;

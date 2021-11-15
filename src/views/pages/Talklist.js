@@ -1,7 +1,6 @@
 import {Link} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {inputEvent, selectInput} from "../../stores/chatSlice";
-// import WordInput from "../components/WordInput";
+import {inputEvent, selectInput} from "../../stores/slice";
 
 const Talklist = () => {
   const inputValue = useSelector(selectInput);
@@ -20,7 +19,6 @@ const Talklist = () => {
           直近トークの表示かつクリックでルーム画面に飛ぶ
         </Link>
       </button>
-      {/* <WordInput event={inputEvent()} value={inputValue} /> */}
       <input
         placeholder="検索ワードの入力..."
         onChange={(e) => dispatch(inputEvent(e.target.value))}
