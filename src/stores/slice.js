@@ -47,7 +47,6 @@ export const SignUpPost = createAsyncThunk(
     const catchState = thunkAPI.getState().users;
     const {signup} = catchState;
     const signUpList = signup;
-    console.log("list:", signUpList);
     const res = await axios.post(
       "http://localhost:8000/rest-auth/registration/",
       signUpList
@@ -56,41 +55,36 @@ export const SignUpPost = createAsyncThunk(
   }
 );
 
+export const getMyProfile = createAsyncThunk(
+  "chatapp/getMyProfile",
+  async (_, thunkAPI) => {
+    const catchState = thunkAPI.getState().users;
+    const {userData} = catchState;
+    const data = userData;
+    console.log("data", data);
+    // const res = await axios({
+    //   method: "get",
+    //   // url: `http://localhost:8000/api/myProfile/${data.user.id}/`,
+    //   url: `http://localhost:8000/api/myProfile/`,
+    //   headers: {
+    //     Authorization: `${data.token}`,
+    //   },
+    const res = await axios.get(`http://localhost:8000/api/myProfile/`, {
+      // headers: {
+      //   // Authorization: `${data.token}`,
+      //   Token: "pzmJohlrIUS2xPLRbOnIXWbAIpuJoDXIdTu7",
+      // },
+    });
+    // });
+    console.log(res.data);
+    return res.data;
+  }
+);
+
 export const chatappSlice = createSlice({
   name: "chatapp",
   initialState,
   reducers: reducers,
-  // {
-  //   loginInput: (state, action) => {
-  //     const [name, value] = action.payload;
-  //     if (name === "email") {
-  //       state.login.email = value;
-  //     } else if (name === "password") {
-  //       state.login.password = value;
-  //     }
-  //   },
-  //   signUpInput: (state, action) => {
-  //     const [name, value] = action.payload;
-  //     if (name === "username") {
-  //       state.signup.username = value;
-  //     } else if (name === "email") {
-  //       state.signup.email = value;
-  //     } else if (name === "password1") {
-  //       state.signup.password1 = value;
-  //     } else if (name === "password2") {
-  //       state.signup.password2 = value;
-  //     } else if (name === "company_name") {
-  //       state.signup.company_name = value;
-  //     } else if (name === "section_name") {
-  //       state.signup.section_name = value;
-  //     } else if (name === "post_name") {
-  //       state.signup.post_name = value;
-  //     }
-  //   },
-  //   signUpSubmit: (state) => {
-  //     state.lists = state.signup;
-  //   },
-  // },
   extraReducers: (builder) => {
     builder.addCase(LoginPost.fulfilled, (state, action) => {
       const token = action.payload.token;
