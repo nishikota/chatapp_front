@@ -1,5 +1,6 @@
 import {useDispatch, useSelector} from "react-redux";
-import {signUpInput, signUpDataSelector, SignUpPost} from "../../stores/slice";
+import {SignUpPost} from "../../stores/async";
+import {signUpDataSelector, signUpInput} from "../../stores/slice";
 import {Link} from "react-router-dom";
 import {Button, Input} from "antd";
 

@@ -2,7 +2,7 @@ import {BrowserRouter, Link, Route} from "react-router-dom";
 import MyprofileChange from "./MyprofileChange";
 import {Button} from "antd";
 import {useEffect} from "react";
-import {getMyProfile} from "../../stores/slice";
+import {getMyProfile} from "../../stores/async";
 import {useDispatch} from "react-redux";
 
 const Myprofile = () => {

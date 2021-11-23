@@ -1,10 +1,10 @@
-import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
-import axios from "axios";
+import {createSlice} from "@reduxjs/toolkit";
 import {reducers} from "./reducers";
+import {LoginPost} from "./async";
 
 const initialState = {
   userData: {
-    token: "",
+    JWTToken: "",
     user: {
       email: "",
       id: "",
@@ -27,60 +27,6 @@ const initialState = {
   inputValue: "",
 };
 
-export const LoginPost = createAsyncThunk(
-  "chatapp/LoginPost",
-  async (_, thunkAPI) => {
-    const catchState = thunkAPI.getState().users;
-    const {login} = catchState;
-    const loginList = login;
-    const res = await axios.post(
-      "http://localhost:8000/rest-auth/login/",
-      loginList
-    );
-    return res.data;
-  }
-);
-
-export const SignUpPost = createAsyncThunk(
-  "chatapp/SignUpPost",
-  async (_, thunkAPI) => {
-    const catchState = thunkAPI.getState().users;
-    const {signup} = catchState;
-    const signUpList = signup;
-    const res = await axios.post(
-      "http://localhost:8000/rest-auth/registration/",
-      signUpList
-    );
-    return res.data;
-  }
-);
-
-export const getMyProfile = createAsyncThunk(
-  "chatapp/getMyProfile",
-  async (_, thunkAPI) => {
-    const catchState = thunkAPI.getState().users;
-    const {userData} = catchState;
-    const data = userData;
-    console.log("data", data);
-    // const res = await axios({
-    //   method: "get",
-    //   // url: `http://localhost:8000/api/myProfile/${data.user.id}/`,
-    //   url: `http://localhost:8000/api/myProfile/`,
-    //   headers: {
-    //     Authorization: `${data.token}`,
-    //   },
-    const res = await axios.get(`http://localhost:8000/api/myProfile/`, {
-      // headers: {
-      //   // Authorization: `${data.token}`,
-      //   Token: "pzmJohlrIUS2xPLRbOnIXWbAIpuJoDXIdTu7",
-      // },
-    });
-    // });
-    console.log(res.data);
-    return res.data;
-  }
-);
-
 export const chatappSlice = createSlice({
   name: "chatapp",
   initialState,
@@ -90,7 +36,7 @@ export const chatappSlice = createSlice({
       const token = action.payload.token;
       const id = action.payload.user.pk;
       const email = action.payload.user.email;
-      state.userData.token = token;
+      state.userData.JWTToken = token;
       state.userData.user.id = id;
       state.userData.user.email = email;
     });

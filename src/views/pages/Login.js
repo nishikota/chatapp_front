@@ -1,6 +1,7 @@
 import {Link} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {loginInput, loginDataSelector, LoginPost} from "../../stores/slice";
+import {LoginPost} from "../../stores/async";
+import {loginDataSelector, loginInput} from "../../stores/slice";
 import {Button, Input} from "antd";
 
 const Login = () => {
