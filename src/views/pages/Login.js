@@ -12,13 +12,9 @@ const Login = () => {
     nav(url);
   };
   const asyncButton = async (asyncFunc, url) => {
-    console.log("asyncButton");
-    // const data = dispatch(asyncFunc);
-    // const event = () => {
-    //   data === undefined ? console.log("error") : handlePage(url);
-    // };
     const data = await dispatch(asyncFunc);
-    data === undefined ? console.log("error") : handlePage(url);
+
+    data.payload === undefined ? console.log("error") : handlePage(url);
   };
 
   return (
@@ -75,7 +71,7 @@ const Login = () => {
   );
 };
 
-export const style = {
+const style = {
   inputArea: {
     padding: "2rem 1rem",
     display: "flex",

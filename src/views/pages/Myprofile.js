@@ -3,7 +3,7 @@ import MyprofileChange from "./MyprofileChange";
 import {Button} from "antd";
 import {getMyProfile} from "../../stores/async";
 import {useDispatch, useSelector} from "react-redux";
-import {myData, myProfile} from "../../stores/slice";
+import {myData, exampleData} from "../../stores/slice";
 import {useLayoutEffect} from "react";
 
 const Myprofile = () => {
@@ -14,16 +14,16 @@ const Myprofile = () => {
   const handlePage = (url) => {
     nav(url);
   };
+  console.log("MPdata:", data);
   return (
     <>
       <div className="title">My Profile</div>
       <div className="profiles">
         <li>
-          <p>{console.log("render", data)}</p>
-          {/* <p>名前:{myData.username}</p>
-          <p>会社名:{myData.company_name}</p>
-          <p>部署名:{myData.section_name}</p>
-          <p>役職:{myData.post_name}</p> */}
+          <p>名前:{data.username}</p>
+          <p>会社名:{data.company_name}</p>
+          <p>部署名:{data.section_name}</p>
+          <p>役職:{data.post_name}</p>
         </li>
       </div>
       <div className="ButtonArea">

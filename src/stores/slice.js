@@ -45,10 +45,8 @@ export const chatappSlice = createSlice({
       state.userData.JWTToken = token;
       state.userData.user.id = id;
       state.userData.user.email = email;
-      console.log("login:async");
     });
     builder.addCase(getMyProfile.fulfilled, (state, action) => {
-      console.log("getMP");
       const name = action.payload.username;
       const company = action.payload.company_name;
       const section = action.payload.section_name;
@@ -57,18 +55,17 @@ export const chatappSlice = createSlice({
       state.myProfile.company_name = company;
       state.myProfile.section_name = section;
       state.myProfile.post_name = post;
-      console.log(state.myProfile.username);
     });
   },
 });
 
 export const loginDataSelector = (state) => state.loginInput;
 export const signUpDataSelector = (state) => state.signUpInput;
-export const exampleData = (state) => state.lists;
+export const exampleData = (state) => state.signUpSubmit;
 
 export const selectInput = (state) => state.inputValue;
 
-export const myData = (state) => state.myProfile;
+export const myData = (state) => state.users.myProfile;
 
 export const {loginInput, signUpInput, signUpSubmit, inputEvent} =
   chatappSlice.actions;

@@ -7,9 +7,12 @@ import {Button} from "antd";
 const Menu = () => {
   const nav = useNavigate();
   const dispatch = useDispatch();
-  console.log("render:menu");
   const handlePage = (url) => {
     nav(url);
+  };
+  const asyncButton = async (asyncFunc, url) => {
+    const data = await dispatch(asyncFunc);
+    data.payload === undefined ? console.log("error") : handlePage(url);
   };
 
   return (
@@ -18,7 +21,10 @@ const Menu = () => {
       <Button style={style.button} onClick={() => handlePage("/")}>
         {/* <Link to="/">signout</Link> */}Sign Out
       </Button>
-      <Button style={style.button} onClick={() => handlePage("/myprofile")}>
+      <Button
+        style={style.button}
+        onClick={() => asyncButton(getMyProfile(), "/myprofile")}
+      >
         {/* <Link to="/myprofile">My Profile</Link> */}
         My Profile
       </Button>
@@ -30,7 +36,7 @@ const Menu = () => {
   );
 };
 
-export const style = {
+const style = {
   button: {
     margin: "3rem 4rem",
     padding: "0 1rem",
