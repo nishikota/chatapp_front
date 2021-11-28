@@ -12,7 +12,7 @@ const Profile = () => {
         <p>{"APIから取得"}</p>
       </li>
       <button className="back">
-        <Link to="/:id/talklist">Back</Link>
+        <Link to="/talklist">Back</Link>
       </button>
     </>
   );

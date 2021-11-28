@@ -4,7 +4,7 @@ const Room = () => {
   return (
     <div>
       <button className="Back">
-        <Link to="/:id/talklist">Back</Link>
+        <Link to="/talklist">Back</Link>
       </button>
       <div className="Message">{"繰り返し処理でTalkを呼び出す"}</div>
       <div className="MyTalkArea">

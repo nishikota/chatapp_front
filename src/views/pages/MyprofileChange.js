@@ -1,4 +1,4 @@
-import {Link} from "react-router-dom";
+import {Link, Outlet} from "react-router-dom";
 
 const MyprofileChange = () => {
   return (
@@ -16,7 +16,7 @@ const MyprofileChange = () => {
         <input className="PostName" />
       </li>
       <button className="ChangeResister">
-        <Link to="/:id/myprofile">完了</Link>
+        <Link to="/myprofile">完了</Link>
       </button>
     </div>
   );

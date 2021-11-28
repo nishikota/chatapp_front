@@ -10,12 +10,12 @@ const Talklist = () => {
     <>
       {"APIからの繰り返しでリストの表示"}
       <button className="ConnectProfile">
-        <Link to="/:id/profile/:id">
+        <Link to="/profile/:id">
           写真を押すと相手ユーザーのプロフィールに飛ぶ
         </Link>
       </button>
       <button className="ConnectRoom">
-        <Link to="/:id/room/:id">
+        <Link to="/room/:id">
           直近トークの表示かつクリックでルーム画面に飛ぶ
         </Link>
       </button>
@@ -30,7 +30,7 @@ const Talklist = () => {
       </button>
 
       <button>
-        <Link to="/:id/menu">Top</Link>
+        <Link to="/menu">Top</Link>
       </button>
     </>
   );

@@ -1,32 +1,30 @@
 import "./App.css";
-import {BrowserRouter, Route, Switch} from "react-router-dom";
+import {Route, Routes} from "react-router-dom";
 import Login from "./views/pages/Login";
 import Menu from "./views/pages/Menu";
 import Myprofile from "./views/pages/Myprofile";
+import MyprofileChange from "./views/pages/MyprofileChange";
 import Profile from "./views/pages/Profile";
 import SignUp from "./views/pages/SignUp";
 import Room from "./views/pages/Room";
 import Talklist from "./views/pages/Talklist";
 import NotFound from "./views/pages/NotFound";
 import React from "react";
-
 function App() {
   return (
     <div className="App" style={style}>
-      <BrowserRouter>
-        <div>
-          <Switch>
-            <Route exact path="/" component={Login} />
-            <Route path="/signup" component={SignUp} />
-            <Route path="/:id/menu" component={Menu} />
-            <Route path="/:id/talklist" component={Talklist} />
-            <Route path="/:id/profile/:id" component={Profile} />
-            <Route path="/:id/room/:id" component={Room} />
-            <Route path="/:id/myprofile" component={Myprofile} />
-            <Route component={NotFound} />
-          </Switch>
-        </div>
-      </BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/menu" element={<Menu />} />
+        <Route path="/talklist" element={<Talklist />} />
+        <Route path="/profile/:id" element={<Profile />} />
+        <Route path="/room/:id" element={<Room />} />
+        <Route path="/myprofile" element={<Myprofile />}>
+          <Route path="/myprofile/change" element={<MyprofileChange />} />
+        </Route>
+        <Route element={<NotFound />} />
+      </Routes>
     </div>
   );
 }

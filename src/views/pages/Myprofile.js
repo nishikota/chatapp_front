@@ -1,37 +1,51 @@
-import {BrowserRouter, Link, Route} from "react-router-dom";
+import {useNavigate, Outlet} from "react-router-dom";
 import MyprofileChange from "./MyprofileChange";
 import {Button} from "antd";
-import {useEffect} from "react";
 import {getMyProfile} from "../../stores/async";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {myData, myProfile} from "../../stores/slice";
+import {useLayoutEffect} from "react";
 
 const Myprofile = () => {
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getMyProfile());
-  });
+  const data = useSelector(myData);
+  // const dispatch = useDispatch();
+  // dispatch(getMyProfile());
+  const nav = useNavigate();
+  const handlePage = (url) => {
+    nav(url);
+  };
   return (
     <>
       <div className="title">My Profile</div>
       <div className="profiles">
         <li>
-          <p>名前:{"APIから合わせて取得"}</p>
-          <p>会社名:{"APIより"}</p>
-          <p>部署名:{"APIより取得と登録機能の追加"}</p>
-          <p>役職:{"APIより取得と登録機能の追加"}</p>
+          <p>{console.log("render", data)}</p>
+          {/* <p>名前:{myData.username}</p>
+          <p>会社名:{myData.company_name}</p>
+          <p>部署名:{myData.section_name}</p>
+          <p>役職:{myData.post_name}</p> */}
         </li>
       </div>
       <div className="ButtonArea">
-        <Button style={style.button}>
-          <Link to="/:id/menu">Top</Link>
+        <Button
+          style={style.button}
+          onClick={() => {
+            handlePage("/menu");
+          }}
+        >
+          Top
         </Button>
-        <BrowserRouter>
-          <Button className="ChangeModal" style={style.button}>
-            <Link to="/:id/change">変更</Link>
-          </Button>
-          <Route path="/:id/change" component={MyprofileChange} />
-        </BrowserRouter>
+        <Button
+          className="ChangeModal"
+          style={style.button}
+          onClick={() => {
+            handlePage("/myprofile/change");
+          }}
+        >
+          変更
+        </Button>
       </div>
+      <Outlet />
     </>
   );
 };

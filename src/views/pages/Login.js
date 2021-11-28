@@ -1,12 +1,25 @@
-import {Link} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {LoginPost} from "../../stores/async";
 import {loginDataSelector, loginInput} from "../../stores/slice";
 import {Button, Input} from "antd";
 
 const Login = () => {
+  const nav = useNavigate();
   const dispatch = useDispatch();
   const inputData = useSelector(loginDataSelector);
+  const handlePage = (url) => {
+    nav(url);
+  };
+  const asyncButton = async (asyncFunc, url) => {
+    console.log("asyncButton");
+    // const data = dispatch(asyncFunc);
+    // const event = () => {
+    //   data === undefined ? console.log("error") : handlePage(url);
+    // };
+    const data = await dispatch(asyncFunc);
+    data === undefined ? console.log("error") : handlePage(url);
+  };
 
   return (
     <>
@@ -42,14 +55,20 @@ const Login = () => {
         <Button
           style={style.button}
           onClick={() => {
-            dispatch(LoginPost());
+            // dispatch(LoginPost());
+            asyncButton(LoginPost(), "/menu");
           }}
         >
-          {/* ログインバリデーションが必要 */}
-          <Link to="/:id/menu">Login</Link>
+          {/* <Link to="/menu" /> */}
+          Login
         </Button>
-        <Button style={style.button}>
-          <Link to="/signUp">signUp</Link>
+        <Button
+          style={style.button}
+          onClick={() => {
+            handlePage("/signup");
+          }}
+        >
+          SignUp
         </Button>
       </div>
     </>

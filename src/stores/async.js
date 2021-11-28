@@ -46,17 +46,14 @@ export const getMyProfile = createAsyncThunk(
     const catchState = thunkAPI.getState().users;
     const {userData} = catchState;
     const data = userData;
-    console.log("data", data);
     const res = await axios({
       method: "get",
       url: `http://localhost:8000/api/myProfile/${data.user.id}/`,
       headers: {
-        // "X-CSRF-Token": (await fetchCsrfToken()).token,
         Authorization: data.JWTToken,
       },
       withCredentials: true,
     });
-    console.log(res.data);
     return res.data;
   }
 );
