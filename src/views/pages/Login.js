@@ -3,17 +3,19 @@ import {useDispatch, useSelector} from "react-redux";
 import {LoginPost} from "../../stores/async";
 import {loginDataSelector, loginInput} from "../../stores/slice";
 import {Button, Input} from "antd";
+import {useCookies} from "react-cookie";
 
 const Login = () => {
   const nav = useNavigate();
   const dispatch = useDispatch();
   const inputData = useSelector(loginDataSelector);
+  const [, setCookie] = useCookies();
   const handlePage = (url) => {
     nav(url);
   };
   const asyncButton = async (asyncFunc, url) => {
     const data = await dispatch(asyncFunc);
-
+    setCookie("Token", data.payload.token);
     data.payload === undefined ? console.log("error") : handlePage(url);
   };
 

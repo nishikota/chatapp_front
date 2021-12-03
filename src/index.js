@@ -7,14 +7,17 @@ import {store} from "./stores/store";
 import {Provider} from "react-redux";
 import "antd/dist/antd.css";
 import {BrowserRouter} from "react-router-dom";
+import {CookiesProvider} from "react-cookie";
 
 render(
   <React.StrictMode>
-    <Provider store={store}>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </Provider>
+    <CookiesProvider>
+      <Provider store={store}>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </Provider>
+    </CookiesProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );

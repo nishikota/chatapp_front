@@ -28,6 +28,18 @@ export const reducers = {
       state.signup.post_name = value;
     }
   },
+  profileInput: (state, action) => {
+    const [name, value] = action.payload;
+    if (name === "username") {
+      state.myProfile.username = value;
+    } else if (name === "company_name") {
+      state.myProfile.company_name = value;
+    } else if (name === "section_name") {
+      state.myProfile.section_name = value;
+    } else if (name === "post_name") {
+      state.myProfile.post_name = value;
+    }
+  },
   signUpSubmit: (state) => {
     state.lists = state.signup;
   },

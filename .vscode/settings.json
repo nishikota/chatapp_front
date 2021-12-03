@@ -3,6 +3,7 @@
     "antd",
     "browserslist",
     "chatapp",
+    "csrftoken",
     "middlewares",
     "Myprofile",
     "reduxjs",

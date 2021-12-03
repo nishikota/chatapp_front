@@ -1,6 +1,6 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {reducers} from "./reducers";
-import {getMyProfile, LoginPost} from "./async";
+import {getMyProfile, LoginPost, putMyProfile} from "./async";
 
 const initialState = {
   myProfile: {
@@ -9,6 +9,7 @@ const initialState = {
     section_name: "",
     post_name: "",
   },
+  csrfToken: "",
   userData: {
     JWTToken: "",
     user: {
@@ -56,18 +57,23 @@ export const chatappSlice = createSlice({
       state.myProfile.section_name = section;
       state.myProfile.post_name = post;
     });
+    builder.addCase(putMyProfile.fulfilled, (state, action) => {
+      console.log(state.myProfile);
+      console.log(action.payload);
+    });
   },
 });
 
 export const loginDataSelector = (state) => state.loginInput;
 export const signUpDataSelector = (state) => state.signUpInput;
+export const changeProfileDataSelector = (state) => state.profileInput;
 export const exampleData = (state) => state.signUpSubmit;
 
-export const selectInput = (state) => state.inputValue;
+export const selectInput = (state) => state.users.inputValue;
 
 export const myData = (state) => state.users.myProfile;
 
-export const {loginInput, signUpInput, signUpSubmit, inputEvent} =
+export const {loginInput, signUpInput, signUpSubmit, inputEvent, profileInput} =
   chatappSlice.actions;
 
 export default chatappSlice.reducer;
