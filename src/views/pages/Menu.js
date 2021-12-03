@@ -1,6 +1,6 @@
 import {useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
-import {getMyProfile} from "../../stores/async";
+import {getMyProfile, getTalkList} from "../../stores/async";
 
 import {Button} from "antd";
 
@@ -25,11 +25,12 @@ const Menu = () => {
         style={style.button}
         onClick={() => asyncButton(getMyProfile(), "/myprofile")}
       >
-        {/* <Link to="/myprofile">My Profile</Link> */}
         My Profile
       </Button>
-      <Button style={style.button} onClick={() => handlePage("/talklist")}>
-        {/* <Link to="/talklist">Let's Talk</Link> */}
+      <Button
+        style={style.button}
+        onClick={() => asyncButton(getTalkList(), "/talklist")}
+      >
         Let's Talk
       </Button>
     </>

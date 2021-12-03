@@ -20,19 +20,6 @@ function getCookie(name) {
 }
 const csrftoken = getCookie("csrftoken");
 
-// csrfトークンの取得
-// export const fetchCsrfToken = async () => {
-//   try {
-//     const response = await axios.get(`${API_HOST}/csrf/`, {
-//       credentials: "include",
-//     });
-//     console.log("fetch response", response.data, response.data.token);
-//     return response.data.token;
-//   } catch (e) {
-//     console.error(e);
-//   }
-// };
-
 export const LoginPost = createAsyncThunk(
   "chatapp/LoginPost",
   async (_, thunkAPI) => {
@@ -69,7 +56,26 @@ export const getMyProfile = createAsyncThunk(
       url: `http://localhost:8000/api/myProfile/${data.user.id}/`,
       headers: {
         Authorization: `Token ${data.JWTToken}`,
-        // HTTP_X_CSRFTOKEN: csrftoken,
+      },
+      withCredentials: true,
+    });
+    return res.data;
+  }
+);
+
+// 引数でindexを渡せばid[i]で特定できる
+export const getOtherProfile = createAsyncThunk(
+  "chatapp/getOtherProfile",
+  async (i, thunkAPI) => {
+    console.log("getOther");
+    const catchState = thunkAPI.getState().users;
+    const {talkList} = catchState;
+    const data = talkList;
+    const res = await axios({
+      method: "get",
+      url: `http://localhost:8000/api/myProfile/${data.id[i]}/`,
+      headers: {
+        Authorization: `Token ${data.JWTToken}`,
       },
       withCredentials: true,
     });
@@ -84,7 +90,6 @@ export const putMyProfile = createAsyncThunk(
     const {myProfile, userData} = catchState;
     const profileList = myProfile;
     const data = userData;
-    console.log("async", data, "profileList", profileList);
     if (myProfile.username === "" || myProfile.company_name === "") {
       console.log("error:NoData in username or company_name");
     } else {
@@ -99,8 +104,26 @@ export const putMyProfile = createAsyncThunk(
         },
         withCredentials: true,
       });
-      console.log("asyncResponse", res.data);
       return res.data;
     }
+  }
+);
+
+export const getTalkList = createAsyncThunk(
+  "chatapp/getTalkList",
+  async (_, thunkAPI) => {
+    const catchState = thunkAPI.getState().users;
+    const {userData} = catchState;
+    const data = userData;
+    const res = await axios({
+      method: "get",
+      url: "http://localhost:8000/api/myProfile/",
+      headers: {
+        Authorization: `Token ${data.JWTToken}`,
+      },
+      withCredentials: true,
+    });
+    console.log(res.data);
+    return res.data;
   }
 );

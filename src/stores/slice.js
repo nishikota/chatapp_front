@@ -1,6 +1,12 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {reducers} from "./reducers";
-import {getMyProfile, LoginPost, putMyProfile} from "./async";
+import {
+  getMyProfile,
+  getOtherProfile,
+  getTalkList,
+  LoginPost,
+  putMyProfile,
+} from "./async";
 
 const initialState = {
   myProfile: {
@@ -9,7 +15,12 @@ const initialState = {
     section_name: "",
     post_name: "",
   },
-  csrfToken: "",
+  otherProfile: {
+    username: "",
+    company_name: "",
+    section_name: "",
+    post_name: "",
+  },
   userData: {
     JWTToken: "",
     user: {
@@ -17,7 +28,11 @@ const initialState = {
       id: "",
     },
   },
-  lists: {},
+  talkList: {
+    id: [],
+    username: [],
+    company_name: [],
+  },
   login: {
     email: "",
     password: "",
@@ -61,6 +76,28 @@ export const chatappSlice = createSlice({
       console.log(state.myProfile);
       console.log(action.payload);
     });
+    builder.addCase(getTalkList.fulfilled, (state, action) => {
+      const userObject = Object.values(action.payload);
+      const userIdData = userObject.map((obj) => obj.id);
+      const userNameData = userObject.map((obj) => obj.username);
+      const userCompanyData = userObject.map((obj) => obj.company_name);
+      console.log(userIdData);
+      console.log(userNameData);
+      console.log(userCompanyData);
+      state.talkList.id = userIdData;
+      state.talkList.username = userNameData;
+      state.talkList.company_name = userCompanyData;
+    });
+    builder.addCase(getOtherProfile.fulfilled, (state, action) => {
+      const name = action.payload.username;
+      const company = action.payload.company_name;
+      const section = action.payload.section_name;
+      const post = action.payload.post_name;
+      state.otherProfile.username = name;
+      state.otherProfile.company_name = company;
+      state.otherProfile.section_name = section;
+      state.otherProfile.post_name = post;
+    });
   },
 });
 
@@ -72,6 +109,10 @@ export const exampleData = (state) => state.signUpSubmit;
 export const selectInput = (state) => state.users.inputValue;
 
 export const myData = (state) => state.users.myProfile;
+export const userNameSelector = (state) => state.users.talkList.username;
+export const userCompanySelector = (state) => state.users.talkList.company_name;
+export const userIdSelector = (state) => state.users.talkList.id;
+export const otherDataSelector = (state) => state.users.otherProfile;
 
 export const {loginInput, signUpInput, signUpSubmit, inputEvent, profileInput} =
   chatappSlice.actions;
